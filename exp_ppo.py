@@ -43,9 +43,7 @@ def main():
     action_space = env.action_space
 
     # Normalize observations based on their empirical mean and variance
-    obs_normalizer = pfrl.nn.EmpiricalNormalization(
-        obs_space.low.size, clip_threshold=5
-    )
+    obs_normalizer = pfrl.nn.EmpiricalNormalization(obs_space.low.size, clip_threshold=5)
 
     obs_size = obs_space.low.size
     action_size = action_space.low.size
@@ -89,7 +87,7 @@ def main():
 
     opt = torch.optim.Adam(model.parameters(), lr=3e-4, eps=1e-5)
 
-    agent =  pfrl.agents.PPO(
+    agent = pfrl.agents.PPO(
         model,
         opt,
         obs_normalizer=obs_normalizer,
