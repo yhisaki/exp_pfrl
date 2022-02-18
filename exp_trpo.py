@@ -18,7 +18,6 @@ def main():
     parser.add_argument("--env_id", type=str, default="Swimmer-v3", help="Gym Env ID")
     parser.add_argument("--seed", type=int, default=0, help="Random seed [0, 2 ** 32)")
     parser.add_argument("--gamma", type=float, default=0.99, help="Discount Rate")
-    parser.add_argument("--group", default=None, help="WandB Group ID")
 
     args = parser.parse_args()
 
