@@ -22,7 +22,7 @@ def main():
 
     args = parser.parse_args()
 
-    wandb.init(project="pfrl", tags=[args.env_id], group=args.group)
+    wandb.init(project="pfrl", tags=[args.env_id], group=f"{args.env_id}_TRPO")
     wandb.config.update(args)
 
     logging.basicConfig(level=logging.INFO)
