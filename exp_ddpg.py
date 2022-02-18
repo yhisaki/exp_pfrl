@@ -27,7 +27,7 @@ def main():
 
     args = parser.parse_args()
 
-    wandb.init(project="pfrl", tags=[args.env_id], group=f"{args.env_id}_SAC")
+    wandb.init(project="pfrl", tags=[args.env_id], group=f"{args.env_id}_DDPG")
     wandb.config.update(args)
 
     logging.basicConfig(level=logging.INFO)
@@ -95,7 +95,7 @@ def main():
         opt_a,
         opt_c,
         rbuf,
-        gamma=0.99,
+        gamma=args.gamma,
         explorer=explorer,
         replay_start_size=10000,
         target_update_method="soft",
