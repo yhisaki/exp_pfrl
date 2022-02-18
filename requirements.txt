@@ -1,0 +1,6 @@
+torch
+gym
+numpy
+matplotlib
+wandb[media]
+pfrl

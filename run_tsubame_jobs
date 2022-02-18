@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import stat
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--env", nargs="+", default=["Walker2d-v3"])
+parser.add_argument("--group", default="")
+parser.add_argument("--time", default="05:00:00")
+parser.add_argument("--num_exp", type=int, default=10)
+parser.add_argument("--gamma", nargs="+", default=[0.99])
+parser.add_argument("--resource", default="s_gpu=1")
+
+args = parser.parse_args()
+
+
+for env in args.env:
+    for discount in args.discount:
+        with open("job_script.sh", mode="w") as f:
+            f.write("#!/bin/sh\n")
+            f.write("#$ -cwd\n")
+            f.write("#$ -j y\n")
+            f.write("#$ -o out/\n")
+            f.write(f"#$ -l {args.resource}\n")
+            f.write(f"#$ -l h_rt={args.time}\n")
+            f.write(f"#$ -t 1:{args.num_exp}\n")
+
+            f.write(f". /etc/profile.d/modules.sh\n")
+            f.write(f"module load singularity cuda cudnn\n")
+            python_command = f"python3 main.py --env_id {env} --discount {discount} --seed $SGE_TASK_ID"
+            singularity_command = (
+                f'singularity exec --nv --writable-tmpfs exp_pfrl.sif {python_command}'
+            )
+            f.write(singularity_command)
+        st = os.stat("./job_script.sh")
+        os.chmod("./job_script.sh", st.st_mode | stat.S_IEXEC)
+        os.system(f"qsub -g {args.group} job_script.sh")
