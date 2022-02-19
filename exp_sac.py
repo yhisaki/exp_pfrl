@@ -7,7 +7,7 @@ import gym
 import numpy as np
 import pfrl
 import torch
-from pfrl import experiments, replay_buffers, utils
+from pfrl import replay_buffers
 from pfrl.nn.lmbda import Lambda
 from torch import distributions, nn
 
@@ -133,7 +133,7 @@ def main():
         env=env,
         eval_env=make_env(test=True),
         outdir=outdir,
-        steps=10e6,
+        steps=1e6,
         eval_n_steps=None,
         eval_n_episodes=10,
         eval_interval=5000,

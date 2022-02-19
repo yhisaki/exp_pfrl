@@ -99,7 +99,7 @@ def main():
         entropy_coef=0,
         standardize_advantages=True,
         gamma=args.gamma,
-        lambd=0.97,
+        lambd=0.95,
     )
 
     outdir = os.path.join(wandb.run.dir, "model")
@@ -109,7 +109,7 @@ def main():
         env=env,
         eval_env=make_env(test=True),
         outdir=outdir,
-        steps=10e6,
+        steps=1e6,
         eval_n_steps=None,
         eval_n_episodes=10,
         eval_interval=5000,

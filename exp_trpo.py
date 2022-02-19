@@ -92,7 +92,7 @@ def main():
         conjugate_gradient_max_iter=20,
         conjugate_gradient_damping=1e-1,
         gamma=args.gamma,
-        lambd=0.97,
+        lambd=0.95,
         vf_epochs=5,
         entropy_coef=0,
     )
@@ -104,7 +104,7 @@ def main():
         env=env,
         eval_env=make_env(test=True),
         outdir=outdir,
-        steps=10e6,
+        steps=1e6,
         eval_n_steps=None,
         eval_n_episodes=10,
         eval_interval=5000,

@@ -7,11 +7,10 @@ import gym
 import numpy as np
 import pfrl
 import torch
-from pfrl import experiments, explorers, replay_buffers, utils
+from pfrl import explorers, replay_buffers
 from pfrl.nn import BoundByTanh, ConcatObsAndAction
-from pfrl.nn.lmbda import Lambda
 from pfrl.policies import DeterministicHead
-from torch import distributions, nn
+from torch import nn
 
 import wandb
 from utils import EvalWandbHook
@@ -27,7 +26,7 @@ def main():
 
     args = parser.parse_args()
 
-    wandb.init(project="pfrl", tags=[args.env_id], group=f"{args.env_id}_SAC")
+    wandb.init(project="pfrl", tags=[args.env_id], group=f"{args.env_id}_DDPG")
     wandb.config.update(args)
 
     logging.basicConfig(level=logging.INFO)
@@ -115,7 +114,7 @@ def main():
         env=env,
         eval_env=make_env(test=True),
         outdir=outdir,
-        steps=10e6,
+        steps=1e6,
         eval_n_steps=None,
         eval_n_episodes=10,
         eval_interval=5000,
