@@ -94,7 +94,7 @@ def main():
         opt_a,
         opt_c,
         rbuf,
-        gamma=0.99,
+        gamma=args.gamma,
         explorer=explorer,
         replay_start_size=10000,
         target_update_method="soft",
